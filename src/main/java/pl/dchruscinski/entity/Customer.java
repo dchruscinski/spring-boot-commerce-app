@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 // @Table(name = "customer")
@@ -23,6 +24,9 @@ public class Customer {
     private String lastName;
     private String email;
     private Integer age;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<ProductOwnership> productAmount;
 
     public Customer() {
 
@@ -68,17 +72,25 @@ public class Customer {
         this.age = age;
     }
 
+    public Set<ProductOwnership> getProductAmount() {
+        return productAmount;
+    }
+
+    public void setProductAmount(Set<ProductOwnership> productAmount) {
+        this.productAmount = productAmount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(age, customer.age);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(age, customer.age) && Objects.equals(productAmount, customer.productAmount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, email, age);
+        return Objects.hash(id, name, lastName, email, age, productAmount);
     }
 
     @Override
@@ -89,6 +101,7 @@ public class Customer {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", productAmount=" + productAmount +
                 '}';
     }
 }

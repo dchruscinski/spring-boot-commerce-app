@@ -13,4 +13,6 @@ public interface CustomerRepository {
     Customer save(Customer customer);
     void deleteById(Integer id);
     int countCustomers();
+    List<Customer> getCustomersByProductId(Integer productId);
+    int countCustomersByProductId(Integer productId);
 }

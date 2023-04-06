@@ -23,6 +23,10 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
+    public List<Customer> getCustomersByProductId(Integer productId) {
+        return customerRepository.getCustomersByProductId(productId);
+    }
+
     public boolean existsById(Integer id) {
         return customerRepository.existsById(id);
     }
@@ -56,5 +60,9 @@ public class CustomerService {
 
     public Integer countCustomers() {
         return customerRepository.countCustomers();
+    }
+
+    public Integer countCustomersByProductId(Integer productId) {
+        return customerRepository.countCustomersByProductId(productId);
     }
 }
