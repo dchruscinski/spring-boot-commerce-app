@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.dchruscinski.entity.Customer;
-import pl.dchruscinski.entity.Product;
 import pl.dchruscinski.service.CustomerService;
-import pl.dchruscinski.service.ProductService;
 
 import java.util.List;
 
@@ -19,12 +17,10 @@ import java.util.List;
 public class CustomerController {
     public static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
     private final CustomerService customerService;
-    private final ProductService productService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, ProductService productService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-        this.productService = productService;
     }
 
     @GetMapping
@@ -51,21 +47,9 @@ public class CustomerController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> getCustomerCount() {
-        logger.debug("getCustomerCount(): returning customer count.");
+    public ResponseEntity<Integer> countCustomers() {
+        logger.debug("getCustomerCount(): returning customers count.");
         return ResponseEntity.ok(customerService.countCustomers());
-    }
-
-    @GetMapping("/{customerId}/products")
-    public ResponseEntity<List<Product>> getProductsByCustomerId(@PathVariable Integer customerId) {
-        logger.debug("getProductsByCustomerId(): returning products list, where owner is customer with ID: {}.",
-                customerId);
-
-        if (productService.countProductsByCustomerId(customerId) == 0) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(productService.getProductsByCustomerId(customerId));
     }
 
     @Transactional
