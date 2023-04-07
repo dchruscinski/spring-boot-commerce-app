@@ -47,8 +47,8 @@ public class CustomerController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> getCustomerCount() {
-        logger.debug("getCustomerCount(): returning customer count.");
+    public ResponseEntity<Integer> countCustomers() {
+        logger.debug("getCustomerCount(): returning customers count.");
         return ResponseEntity.ok(customerService.countCustomers());
     }
 

@@ -1,9 +1,11 @@
 package pl.dchruscinski.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 // @Table(name = "customer")
@@ -21,11 +23,15 @@ public class Customer {
     @NotBlank(message = "Customer must have last name.")
     @Column(name = "last_name")
     private String lastName;
+
+    @NotBlank(message = "Customed needs to have set his phone number.")
+    private String phoneNumber;
     private String email;
-    private Integer age;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<ProductPurchase> purchases;
 
     public Customer() {
-
     }
 
     public Integer getId() {
@@ -60,12 +66,20 @@ public class Customer {
         this.email = email;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Set<ProductPurchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<ProductPurchase> purchases) {
+        this.purchases = purchases;
     }
 
     @Override
@@ -73,12 +87,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(age, customer.age);
+        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(purchases, customer.purchases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, email, age);
+        return Objects.hash(id, name, lastName, email, phoneNumber, purchases);
     }
 
     @Override
@@ -88,7 +102,8 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
+                ", phoneNumber=" + phoneNumber + '\'' +
+                ", purchases=" + purchases +
                 '}';
     }
 }

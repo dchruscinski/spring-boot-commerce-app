@@ -46,8 +46,8 @@ public class ProductController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> getProductCount() {
-        logger.debug("getProductCount(): returning product count.");
+    public ResponseEntity<Integer> countProducts() {
+        logger.debug("getProductCount(): returning products count.");
         return ResponseEntity.ok(productService.countProducts());
     }
 

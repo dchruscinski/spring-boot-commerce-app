@@ -12,9 +12,9 @@ public interface AdapterProductRepository extends ProductRepository, JpaReposito
 
     @Override
     @Query(nativeQuery = true, value = "SELECT COUNT(*) > 0 FROM product WHERE id = :id")
-    boolean existsById(@Param("id") Integer id);
+    boolean existsById(@Param("id") Integer productId);
 
     @Override
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM product")
-    int countProducts();
+    Integer countProducts();
 }

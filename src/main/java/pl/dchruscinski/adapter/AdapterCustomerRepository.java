@@ -11,10 +11,10 @@ import pl.dchruscinski.repository.CustomerRepository;
 public interface AdapterCustomerRepository extends CustomerRepository, JpaRepository<Customer, Integer> {
 
     @Override
-    @Query(nativeQuery = true, value = "SELECT COUNT(*) > 0 FROM customer WHERE id = :id")
-    boolean existsById(@Param("id") Integer id);
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) > 0 FROM customer WHERE id = :customerId")
+    boolean existsById(@Param("customerId") Integer customerId);
 
     @Override
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM customer")
-    int countCustomers();
+    Integer countCustomers();
 }

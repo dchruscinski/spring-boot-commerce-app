@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface ProductRepository {
 
     List<Product> findAll();
-    Optional<Product> findById(Integer id);
-    boolean existsById(Integer id);
+    Optional<Product> findById(Integer productId);
+    boolean existsById(Integer productId);
     Product save(Product product);
-    void deleteById(Integer id);
-    int countProducts();
+    void deleteById(Integer productId);
+    Integer countProducts();
 }

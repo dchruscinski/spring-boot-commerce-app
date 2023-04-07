@@ -1,13 +1,12 @@
 package pl.dchruscinski.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -24,8 +23,10 @@ public class Product {
 
     private String color;
 
-    public Product() {
+    @OneToMany(mappedBy = "product")
+    private Set<ProductPurchase> purchases;
 
+    public Product() {
     }
 
     public Integer getId() {
@@ -60,17 +61,25 @@ public class Product {
         this.color = color;
     }
 
+    public Set<ProductPurchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<ProductPurchase> purchases) {
+        this.purchases = purchases;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(purchases, product.purchases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, color);
+        return Objects.hash(id, name, price, color, purchases);
     }
 
     @Override
@@ -80,6 +89,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", color='" + color + '\'' +
+                ", purchases=" + purchases +
                 '}';
     }
 }
