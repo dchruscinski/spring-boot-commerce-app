@@ -23,10 +23,6 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getProductsByCustomerId(Integer customerId) {
-        return productRepository.getProductsByCustomerId(customerId);
-    }
-
     public boolean existsById(Integer id) {
         return productRepository.existsById(id);
     }
@@ -60,9 +56,5 @@ public class ProductService {
 
     public Integer countProducts() {
         return productRepository.countProducts();
-    }
-
-    public Integer countProductsByCustomerId(Integer customerId) {
-        return productRepository.countProductsByCustomerId(customerId);
     }
 }

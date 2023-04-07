@@ -1,5 +1,6 @@
 package pl.dchruscinski.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,10 +24,9 @@ public class Product {
     private String color;
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductOwnership> productAmount;
+    private Set<ProductPurchase> purchases;
 
     public Product() {
-
     }
 
     public Integer getId() {
@@ -61,12 +61,12 @@ public class Product {
         this.color = color;
     }
 
-    public Set<ProductOwnership> getProductAmount() {
-        return productAmount;
+    public Set<ProductPurchase> getPurchases() {
+        return purchases;
     }
 
-    public void setProductAmount(Set<ProductOwnership> productAmount) {
-        this.productAmount = productAmount;
+    public void setPurchases(Set<ProductPurchase> purchases) {
+        this.purchases = purchases;
     }
 
     @Override
@@ -74,12 +74,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(productAmount, product.productAmount);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(purchases, product.purchases);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, color, productAmount);
+        return Objects.hash(id, name, price, color, purchases);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", color='" + color + '\'' +
-                ", productAmount=" + productAmount +
+                ", purchases=" + purchases +
                 '}';
     }
 }
