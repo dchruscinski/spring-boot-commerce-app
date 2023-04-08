@@ -13,4 +13,5 @@ public interface ProductRepository {
     Product save(Product product);
     void deleteById(Integer productId);
     Integer countProducts();
+    Integer countProductsByCategory(Integer categoryId);
 }
