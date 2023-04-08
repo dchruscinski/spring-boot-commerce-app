@@ -17,4 +17,8 @@ public interface AdapterProductRepository extends ProductRepository, JpaReposito
     @Override
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM product")
     Integer countProducts();
+
+    @Override
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM product WHERE product_category_id = :categoryId")
+    Integer countProductsByCategory(@Param("categoryId") Integer categoryId);
 }

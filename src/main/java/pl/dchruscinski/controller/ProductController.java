@@ -51,6 +51,12 @@ public class ProductController {
         return ResponseEntity.ok(productService.countProducts());
     }
 
+    @GetMapping("/count/category/{categoryId}")
+    public ResponseEntity<Integer> countProductsByCategory(@PathVariable Integer categoryId) {
+        logger.debug("getProductCount(): returning products count.");
+        return ResponseEntity.ok(productService.countProductsByCategory(categoryId));
+    }
+
     @Transactional
     @PostMapping
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {

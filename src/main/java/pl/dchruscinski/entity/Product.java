@@ -1,6 +1,5 @@
 package pl.dchruscinski.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +24,10 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<ProductPurchase> purchases;
+
+    @ManyToOne
+    @JoinColumn(name = "product_category_id")
+    private ProductCategory productCategory;
 
     public Product() {
     }
@@ -69,17 +72,25 @@ public class Product {
         this.purchases = purchases;
     }
 
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(purchases, product.purchases);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(purchases, product.purchases) && Objects.equals(productCategory, product.productCategory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, color, purchases);
+        return Objects.hash(id, name, price, color, purchases, productCategory);
     }
 
     @Override
@@ -90,6 +101,7 @@ public class Product {
                 ", price=" + price +
                 ", color='" + color + '\'' +
                 ", purchases=" + purchases +
+                ", productCategory=" + productCategory +
                 '}';
     }
 }

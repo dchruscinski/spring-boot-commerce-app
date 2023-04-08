@@ -57,4 +57,8 @@ public class ProductService {
     public Integer countProducts() {
         return productRepository.countProducts();
     }
+
+    public Integer countProductsByCategory(Integer categoryId) {
+        return productRepository.countProductsByCategory(categoryId);
+    }
 }
