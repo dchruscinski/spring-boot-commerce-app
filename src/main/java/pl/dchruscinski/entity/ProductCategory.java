@@ -1,5 +1,7 @@
 package pl.dchruscinski.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -18,6 +20,9 @@ public class ProductCategory {
 
     @OneToMany(mappedBy = "productCategory")
     private Set<Product> products;
+
+    @OneToOne(mappedBy = "productCategory")
+    private ProductManager manager;
 
     public ProductCategory() {
     }
@@ -46,17 +51,25 @@ public class ProductCategory {
         this.products = products;
     }
 
+    public ProductManager getManager() {
+        return manager;
+    }
+
+    public void setManager(ProductManager manager) {
+        this.manager = manager;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductCategory that = (ProductCategory) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(products, that.products);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(products, that.products) && Objects.equals(manager, that.manager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, products);
+        return Objects.hash(id, name, products, manager);
     }
 
     @Override
@@ -65,6 +78,7 @@ public class ProductCategory {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", products=" + products +
+                ", manager=" + manager +
                 '}';
     }
 }
