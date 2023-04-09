@@ -1,6 +1,6 @@
 package pl.dchruscinski.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -9,6 +9,10 @@ import java.util.Set;
 
 @Entity
 // @Table(name = "customer")
+@JsonIdentityInfo(
+        scope = Customer.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Customer {
 
     @Id
@@ -24,11 +28,12 @@ public class Customer {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank(message = "Customed needs to have set his phone number.")
+    @NotBlank(message = "Customer needs to have set his phone number.")
     private String phoneNumber;
     private String email;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private Set<ProductPurchase> purchases;
 
     public Customer() {

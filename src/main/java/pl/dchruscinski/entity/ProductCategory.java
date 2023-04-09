@@ -9,6 +9,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        scope = ProductCategory.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ProductCategory {
 
     @Id

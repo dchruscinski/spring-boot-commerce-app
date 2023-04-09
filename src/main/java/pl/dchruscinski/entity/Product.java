@@ -1,5 +1,6 @@
 package pl.dchruscinski.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,10 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        scope = Product.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Product {
 
     @Id
@@ -23,10 +28,12 @@ public class Product {
     private String color;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private Set<ProductPurchase> purchases;
 
     @ManyToOne
     @JoinColumn(name = "product_category_id")
+    @JsonIgnore
     private ProductCategory productCategory;
 
     public Product() {
