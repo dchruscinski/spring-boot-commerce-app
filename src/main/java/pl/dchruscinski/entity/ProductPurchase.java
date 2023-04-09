@@ -1,6 +1,6 @@
 package pl.dchruscinski.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -8,6 +8,10 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(
+        scope = ProductPurchase.class,
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ProductPurchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
