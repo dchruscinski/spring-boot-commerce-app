@@ -16,3 +16,6 @@ spring:
     show-sql: true
   main:
     web-application-type: servlet
+
+server.error.include-message: always
+logging.file.name: ./logs/commerce-app.log
