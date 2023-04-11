@@ -1,6 +1,5 @@
 package pl.dchruscinski.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import pl.dchruscinski.entity.ProductPurchase;
@@ -13,7 +12,6 @@ import java.util.Optional;
 public class ProductPurchaseService {
     private final ProductPurchaseRepository productPurchaseRepository;
 
-    @Autowired
     public ProductPurchaseService(ProductPurchaseRepository productPurchaseRepository) {
         this.productPurchaseRepository = productPurchaseRepository;
     }
