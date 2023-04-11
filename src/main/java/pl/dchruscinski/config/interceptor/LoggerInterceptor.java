@@ -1,4 +1,4 @@
-package pl.dchruscinski.controller;
+package pl.dchruscinski.config.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

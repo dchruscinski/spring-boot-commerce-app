@@ -3,7 +3,7 @@ package pl.dchruscinski.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import pl.dchruscinski.controller.LoggerInterceptor;
+import pl.dchruscinski.config.interceptor.LoggerInterceptor;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {

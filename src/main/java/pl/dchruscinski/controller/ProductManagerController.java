@@ -3,7 +3,6 @@ package pl.dchruscinski.controller;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ public class ProductManagerController {
     public static final Logger logger = LoggerFactory.getLogger(ProductManagerController.class);
     private final ProductManagerService productManagerService;
 
-    @Autowired
     public ProductManagerController(ProductManagerService productManagerService) {
         this.productManagerService = productManagerService;
     }
