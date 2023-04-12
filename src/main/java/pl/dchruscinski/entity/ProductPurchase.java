@@ -1,10 +1,12 @@
 package pl.dchruscinski.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -30,9 +32,8 @@ public class ProductPurchase {
     @NotNull(message = "You need to specify amount of purchased product.")
     private Integer amount;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @NotNull(message = "You must set date for purchase.")
-    private Date purchaseDate;
+    private LocalDateTime purchaseDate;
 
     public ProductPurchase() {
     }
@@ -69,11 +70,11 @@ public class ProductPurchase {
         this.amount = amount;
     }
 
-    public Date getPurchaseDate() {
+    public LocalDateTime getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
