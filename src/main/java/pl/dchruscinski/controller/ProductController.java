@@ -75,6 +75,19 @@ public class ProductController {
     }
 
     @Transactional
+    @PatchMapping("/{productId}")
+    public ResponseEntity<?> toggleProductAvailability(@PathVariable Integer productId){
+        if (!productService.existsById(productId)) {
+            logger.warn("toggleProductAvailability(): cannot find product with ID: {}.", productId);
+            return ResponseEntity.notFound().build();
+        }
+
+        productService.toggleProductAvailability(productId);
+        logger.debug("toggleProductAvailability(): toggling availability for product with ID: {}.", productId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
     @DeleteMapping("/{productId}")
     public ResponseEntity<Product> deleteProduct(@PathVariable Integer productId) {
         if (!productService.existsById(productId)) {
