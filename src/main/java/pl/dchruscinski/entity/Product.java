@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import pl.dchruscinski.event.ProductAvailabilityEvent;
 
 import java.util.Objects;
 import java.util.Set;
@@ -26,6 +27,7 @@ public class Product {
     private Integer price;
 
     private String color;
+    private boolean isAvailable;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
@@ -71,6 +73,15 @@ public class Product {
         this.color = color;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public ProductAvailabilityEvent toggle() {
+        this.isAvailable = !this.isAvailable;
+        return ProductAvailabilityEvent.changed(this);
+    }
+
     public Set<ProductPurchase> getPurchases() {
         return purchases;
     }
@@ -92,12 +103,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(purchases, product.purchases) && Objects.equals(productCategory, product.productCategory);
+        return isAvailable == product.isAvailable && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price) && Objects.equals(color, product.color) && Objects.equals(purchases, product.purchases) && Objects.equals(productCategory, product.productCategory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, color, purchases, productCategory);
+        return Objects.hash(id, name, price, color, isAvailable, purchases, productCategory);
     }
 
     @Override
@@ -107,6 +118,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", color='" + color + '\'' +
+                ", isAvailable=" + isAvailable +
                 ", purchases=" + purchases +
                 ", productCategory=" + productCategory +
                 '}';
