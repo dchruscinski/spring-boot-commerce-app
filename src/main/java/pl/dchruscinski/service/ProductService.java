@@ -1,5 +1,6 @@
 package pl.dchruscinski.service;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,9 +12,11 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+    private final ApplicationEventPublisher publisher;
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ApplicationEventPublisher publisher, ProductRepository productRepository) {
+        this.publisher = publisher;
         this.productRepository = productRepository;
     }
 
@@ -46,6 +49,12 @@ public class ProductService {
     public Product updateProduct(@RequestBody Product product, @PathVariable Integer productId) {
         product.setId(productId);
         return productRepository.save(product);
+    }
+
+    public void toggleProductAvailability(@PathVariable Integer productId) {
+        productRepository.findById(productId)
+                .map(Product::toggle)
+                .ifPresent(publisher::publishEvent);
     }
 
     public void deleteProductById(Integer id) {
