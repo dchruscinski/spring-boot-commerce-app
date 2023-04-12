@@ -14,7 +14,9 @@ public class LoggerFilter implements Filter {
     public static final Logger logger = LoggerFactory.getLogger(LoggerFilter.class);
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(ServletRequest request,
+                         ServletResponse response,
+                         FilterChain chain)
             throws IOException, ServletException {
 
         if (request instanceof HttpServletRequest httpRequest){
