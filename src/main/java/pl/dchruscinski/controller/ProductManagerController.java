@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.dchruscinski.config.exception.ResourceNotFoundException;
 import pl.dchruscinski.entity.Customer;
 import pl.dchruscinski.entity.ProductManager;
 import pl.dchruscinski.service.ProductManagerService;
@@ -36,8 +37,7 @@ public class ProductManagerController {
     @GetMapping("/{managerId}")
     public ResponseEntity<ProductManager> getProductManager(@PathVariable Integer managerId) {
         if (!productManagerService.existsById(managerId)) {
-            logger.warn("getProductManager(): cannot find product manager with ID: {}.", managerId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductManager(): cannot find product manager with ID:" + managerId);
         }
 
         logger.debug("getProductManager(): returning product manager with ID: {}.", managerId);
@@ -63,8 +63,7 @@ public class ProductManagerController {
                                                                @PathVariable Integer managerId) {
 
         if (!productManagerService.existsById(managerId)) {
-            logger.warn("updateProductManager(): cannot find product manager with ID: {}.", managerId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductManager(): cannot find product manager with ID:" + managerId);
         }
 
         logger.debug("updateProductManager(): updating product manager with ID: {} with values: {}.",
@@ -76,8 +75,7 @@ public class ProductManagerController {
     @DeleteMapping("/{managerId}")
     public ResponseEntity<Customer> deleteProductManager(@PathVariable Integer managerId) {
         if (!productManagerService.existsById(managerId)) {
-            logger.warn("deleteCustomer(): cannot find product manager with ID: {}.", managerId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductManager(): cannot find product manager with ID:" + managerId);
         }
 
         logger.debug("deleteCustomer(): deleting product manager with ID: {}.", managerId);

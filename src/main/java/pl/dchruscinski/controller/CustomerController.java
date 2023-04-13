@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.dchruscinski.config.exception.ResourceNotFoundException;
 import pl.dchruscinski.entity.Customer;
 import pl.dchruscinski.service.CustomerService;
 
@@ -36,8 +37,7 @@ public class CustomerController {
     // public Customer getCustomer(@PathVariable("customerId") Integer id) {
     public ResponseEntity<Customer> getCustomer(@PathVariable Integer customerId) {
         if (!customerService.existsById(customerId)) {
-            logger.warn("getCustomer(): cannot find customer with ID: {}.", customerId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getCustomer(): cannot find customer with ID:" + customerId);
         }
 
         logger.debug("getCustomer(): returning customer with ID: {}.", customerId);
@@ -61,8 +61,7 @@ public class CustomerController {
     @PutMapping("/{customerId}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable Integer customerId) {
         if (!customerService.existsById(customerId)) {
-            logger.warn("updateCustomer(): cannot find customer with ID: {}.", customerId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("updateCustomer(): cannot find customer with ID: {}:" + customerId);
         }
 
         logger.debug("updateCustomer(): updating customer with ID: {} with values: {}.", customerId, customer.toString());
@@ -73,8 +72,7 @@ public class CustomerController {
     @DeleteMapping("/{customerId}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer customerId) {
         if (!customerService.existsById(customerId)) {
-            logger.warn("deleteCustomer(): cannot find customer with ID: {}.", customerId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("deleteCustomer(): cannot find customer with ID: {}:" + customerId);
         }
 
         logger.debug("deleteCustomer(): deleting customer with ID: {}.", customerId);

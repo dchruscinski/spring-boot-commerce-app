@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.dchruscinski.config.exception.ResourceNotFoundException;
 import pl.dchruscinski.entity.ProductCategory;
 import pl.dchruscinski.service.ProductCategoryService;
 
@@ -35,8 +36,8 @@ public class ProductCategoriesController {
     @GetMapping("/{categoryId}")
     public ResponseEntity<ProductCategory> getProductCategory(@PathVariable Integer categoryId) {
         if (!productCategoryService.existsById(categoryId)) {
-            logger.warn("getProductCategory(): cannot find product category with ID: {}.", categoryId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductCategory(): cannot find product category with ID:"
+                    + categoryId);
         }
 
         logger.debug("getProductCategory(): returning product category with ID: {}.", categoryId);
@@ -60,8 +61,8 @@ public class ProductCategoriesController {
     @PutMapping("/{categoryId}")
     public ResponseEntity<ProductCategory> updateProductCategory(@RequestBody ProductCategory productCategory, @PathVariable Integer categoryId) {
         if (!productCategoryService.existsById(categoryId)) {
-            logger.warn("updateProductCategory(): cannot find product category with ID: {}.", categoryId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductCategory(): cannot find product category with ID:"
+                    + categoryId);
         }
 
         logger.debug("updateProductCategory(): updating product category with ID: {} with values: {}.",
@@ -73,8 +74,8 @@ public class ProductCategoriesController {
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<ProductCategory> deleteProductCategory(@PathVariable Integer categoryId) {
         if (!productCategoryService.existsById(categoryId)) {
-            logger.warn("deleteProductCategory(): cannot find product category with ID: {}.", categoryId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductCategory(): cannot find product category with ID:"
+                    + categoryId);
         }
 
         logger.debug("deleteProductCategory(): deleting product category with ID: {}.", categoryId);

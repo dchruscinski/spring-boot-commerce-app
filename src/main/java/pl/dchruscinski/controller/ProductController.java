@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.dchruscinski.config.exception.ResourceNotFoundException;
 import pl.dchruscinski.entity.Product;
 import pl.dchruscinski.service.ProductService;
 
@@ -35,8 +36,7 @@ public class ProductController {
     @GetMapping("/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
         if (!productService.existsById(productId)) {
-            logger.warn("getProduct(): cannot find product with ID: {}.", productId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProduct(): cannot find product with ID:" + productId);
         }
 
         logger.debug("getProduct(): returning product with ID: {}.", productId);
@@ -66,8 +66,7 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Integer productId) {
         if (!productService.existsById(productId)) {
-            logger.warn("updateProduct(): cannot find product with ID: {}.", productId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProduct(): cannot find product with ID:" + productId);
         }
 
         logger.debug("updateProduct(): updating product with ID: {} with values: {}.", productId, product.toString());
@@ -78,8 +77,7 @@ public class ProductController {
     @PatchMapping("/{productId}")
     public ResponseEntity<?> toggleProductAvailability(@PathVariable Integer productId){
         if (!productService.existsById(productId)) {
-            logger.warn("toggleProductAvailability(): cannot find product with ID: {}.", productId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProduct(): cannot find product with ID:" + productId);
         }
 
         productService.toggleProductAvailability(productId);
@@ -91,8 +89,7 @@ public class ProductController {
     @DeleteMapping("/{productId}")
     public ResponseEntity<Product> deleteProduct(@PathVariable Integer productId) {
         if (!productService.existsById(productId)) {
-            logger.warn("deleteProduct(): cannot find product with ID: {}.", productId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProduct(): cannot find product with ID:" + productId);
         }
 
         logger.debug("deleteProduct(): deleting product with ID: {}.", productId);
