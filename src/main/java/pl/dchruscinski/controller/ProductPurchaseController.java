@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.dchruscinski.config.exception.ResourceNotFoundException;
 import pl.dchruscinski.entity.ProductPurchase;
 import pl.dchruscinski.service.ProductPurchaseService;
 
@@ -57,8 +58,7 @@ public class ProductPurchaseController {
     @GetMapping("/{purchaseId}")
     public ResponseEntity<ProductPurchase> getProductPurchase(@PathVariable Integer purchaseId) {
         if (!productPurchaseService.existsById(purchaseId)) {
-            logger.warn("getProductPurchase(): cannot find purchase with ID: {}.", purchaseId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductPurchase(): cannot find purchase with ID:" + purchaseId);
         }
 
         logger.debug("getProductPurchase(): returning product purchase with ID: {}.", purchaseId);
@@ -84,8 +84,7 @@ public class ProductPurchaseController {
                                                                  @PathVariable Integer purchaseId) {
 
         if (!productPurchaseService.existsById(purchaseId)) {
-            logger.warn("updateProductPurchase(): cannot find product purchase with ID: {}.", purchaseId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductPurchase(): cannot find purchase with ID:" + purchaseId);
         }
 
         logger.debug("updateProductPurchase(): updating purchase with ID: {} with values: {}.", purchaseId, productPurchase.toString());
@@ -96,8 +95,7 @@ public class ProductPurchaseController {
     @DeleteMapping("/{purchaseId}")
     public ResponseEntity<ProductPurchase> deleteProductPurchase(@PathVariable Integer purchaseId) {
         if (!productPurchaseService.existsById(purchaseId)) {
-            logger.warn("deleteProductPurchase(): cannot find product purchase with ID: {}.", purchaseId);
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("getProductPurchase(): cannot find purchase with ID:" + purchaseId);
         }
 
         logger.debug("deleteProductPurchase(): deleting product purchase with ID: {}.", purchaseId);
