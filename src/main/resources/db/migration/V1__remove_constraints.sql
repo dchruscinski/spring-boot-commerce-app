@@ -1,0 +1,11 @@
+ALTER TABLE IF EXISTS product
+    DROP CONSTRAINT IF EXISTS FKcwclrqu392y86y0pmyrsi649r;
+
+ALTER TABLE IF EXISTS product_manager
+    DROP CONSTRAINT IF EXISTS FKj5iwocb2y5gmy0n04wp6ngeyq;
+
+ALTER TABLE IF EXISTS product_purchase
+    DROP CONSTRAINT IF EXISTS FKaop2umvfw9dxt3yvfnqcqixss;
+
+ALTER TABLE IF EXISTS product_purchase
+    DROP CONSTRAINT IF EXISTS FK2ceg0kva32705a9f5q70i3wvq;
