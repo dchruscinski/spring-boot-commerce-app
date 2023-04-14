@@ -15,6 +15,13 @@
 	<description>Training project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<flyway.user>user</flyway.user>
+		<flyway.password>password</flyway.password>
+		<flyway.schemas>commerce</flyway.schemas>
+		<flyway.url>jdbc:postgresql://localhost:5332/commerce</flyway.url>
+		<flyway.locations>filesystem:db/migration</flyway.locations>
+		<flyway.cleanDisabled>false</flyway.cleanDisabled>
+		<flyway.baselineVersion>0.0</flyway.baselineVersion>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +41,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -50,6 +62,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
