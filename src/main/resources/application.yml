@@ -19,3 +19,9 @@ spring:
 
 server.error.include-message: always
 logging.file.name: ./logs/commerce-app.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
